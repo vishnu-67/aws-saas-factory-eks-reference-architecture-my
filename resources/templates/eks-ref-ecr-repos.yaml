@@ -31,6 +31,11 @@ Resources:
     Properties: 
       ImageScanningConfiguration: 
         scanOnPush: "true"
+  InvoiceService: 
+    Type: AWS::ECR::Repository
+    Properties: 
+      ImageScanningConfiguration: 
+        scanOnPush: "true
 Outputs:
   TenantManagementServiceRepo:
     Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${TenantManagementService}"
@@ -44,3 +49,5 @@ Outputs:
     Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${ProductService}"
   OrderServiceRepo:
     Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${OrderService}"
+  InvoiceServiceRepo:
+    Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${InvoiceService}"

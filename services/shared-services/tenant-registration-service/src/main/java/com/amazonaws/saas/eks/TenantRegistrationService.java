@@ -136,6 +136,7 @@ public class TenantRegistrationService {
 		LoggingManager.logInfo(tenant.getTenantId(), "S3 URL =>" + saaSProviderMetadata.getS3Endpoint());
 		LoggingManager.logInfo(tenant.getTenantId(), "ProductServiceEcrRepoUri =>" + saaSProviderMetadata.getProductServiceEcrRepoUri());
 		LoggingManager.logInfo(tenant.getTenantId(), "OrderServiceEcrRepoUri =>" + saaSProviderMetadata.getOrderServiceEcrRepoUri());
+		LoggingManager.logInfo(tenant.getTenantId(), "InvoiceServiceEcrRepoUri =>" + saaSProviderMetadata.getInvoiceServiceEcrRepoUri());
 
 		AmazonCloudFormation client = AmazonCloudFormationClientBuilder.defaultClient();
 
@@ -164,6 +165,11 @@ public class TenantRegistrationService {
 		orderServiceEcrRepoUriParam.setParameterValue(saaSProviderMetadata.getOrderServiceEcrRepoUri());
 		parameters.add(orderServiceEcrRepoUriParam);
 
+		Parameter InvoiceServiceEcrRepoUriParam = new Parameter();
+		invoiceServiceEcrRepoUriParam.setParameterKey("InvoiceServiceEcrRepoUri");
+		invoiceServiceEcrRepoUriParam.setParameterValue(saaSProviderMetadata.getInvoiceServiceEcrRepoUri());
+		parameters.add(invoiceServiceEcrRepoUriParam);
+
 		createRequest.setParameters(parameters);
 
 		List<String> capabilities = new ArrayList<String>();
@@ -191,6 +197,7 @@ public class TenantRegistrationService {
 			metadata.setS3Endpoint((String) item.get("S3_ENDPOINT"));
 			metadata.setProductServiceEcrRepoUri((String) item.get("PRODUCT_SERVICE_ECR"));
 			metadata.setOrderServiceEcrRepoUri((String) item.get("ORDER_SERVICE_ECR"));
+			metadata.setInvoiceServiceEcrRepoUri((String) item.get("INVOICE_SERVICE_ECR"));
 			
 			logger.info("Printing item! ");
 			logger.info(item.toJSONPretty());

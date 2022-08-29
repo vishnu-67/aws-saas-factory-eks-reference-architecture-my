@@ -22,6 +22,7 @@ USER_MGMT_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK
 SAAS_APP_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-SaasAppECR'].Value" --output text)
 PRODUCT_SERVICE_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-ProductECR'].Value" --output text)
 ORDER_SERVICE_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-OrderECR'].Value" --output text)
+INVOICE_SERVICE_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-InvoiceECR'].Value" --output text)
 
 aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
 
@@ -65,3 +66,11 @@ docker build -t order-service .)
 echo "Tag and push Order Service to its ECR repository"
 docker tag order-service $ORDER_SERVICE_ECR:latest
 docker push $ORDER_SERVICE_ECR:latest
+
+echo "Build the Invoice Service"
+(cd services/application-services/invoice-service &&
+docker build -t invoice-service .)
+
+echo "Tag and push invoice Service to its ECR repository"
+docker tag invoice-service $INVOICE_SERVICE_ECR:latest
+docker push $INVOICE_SERVICE_ECR:latest

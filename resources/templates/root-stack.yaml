@@ -192,6 +192,11 @@ Outputs:
     Value: !GetAtt ECRRepos.Outputs.OrderServiceRepo
     Export:
       Name: !Sub '${AWS::StackName}-OrderECR'
+  InvoiceECR:
+    Description: The ECR where the Invoice Service container should be updated
+    Value: !GetAtt ECRRepos.Outputs.InvoiceServiceRepo
+    Export:
+      Name: !Sub '${AWS::StackName}-InvoiceECR'
   CodeCommitCloneUrl:
     Description: The URL to git clone the Code Commit repo
     Value: !GetAtt TenantOnboarding.Outputs.CodeCommitCloneUrl

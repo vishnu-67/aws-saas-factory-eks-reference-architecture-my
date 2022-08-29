@@ -31,6 +31,7 @@ phases:
       - cat $HOME/.kube/config
       - kubectl config view
       - aws dynamodb create-table --table-name Order-$TENANT_NAME --attribute-definitions AttributeName=OrderId,AttributeType=S --key-schema AttributeName=OrderId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+      - aws dynamodb create-table --table-name Invoice-$TENANT_NAME --attribute-definitions AttributeName=InvoiceId,AttributeType=S --key-schema AttributeName=InvoiceId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
       - sed -i -e 's,TENANT_NAME,'$TENANT_NAME',g' resources/policy/order-ddb-table-policy.json
       - sed -i -e 's,ACCOUNT_ID,'$ACCOUNT_ID',g' resources/policy/order-ddb-table-policy.json
       - aws iam create-policy --policy-name $TENANT_NAME-ddb-policy --policy-document file://resources/policy/order-ddb-table-policy.json
@@ -45,5 +46,9 @@ phases:
       - sed -i -e 's,CUSTOM_DOMAIN,'$CUSTOM_DOMAIN',g' services/application-services/order-service/kubernetes/order-service.yaml
       - sed -i -e 's,ORDER_SERVICE_ECR_REPO_URI,'$ORDER_SERVICE_ECR_REPO_URI',g' services/application-services/order-service/kubernetes/order-service.yaml
       - kubectl apply -f services/application-services/order-service/kubernetes/order-service.yaml -n $TENANT_NAME
+      - sed -i -e 's,TENANT_NAME,'$TENANT_NAME',g' services/application-services/invoice-service/kubernetes/invoice-service.yaml
+      - sed -i -e 's,CUSTOM_DOMAIN,'$CUSTOM_DOMAIN',g' services/application-services/invoice-service/kubernetes/invoice-service.yaml
+      - sed -i -e 's,INVOICE_SERVICE_ECR_REPO_URI,'$INVOICE_SERVICE_ECR_REPO_URI',g' services/application-services/invoice-service/kubernetes/invoice-service.yaml
+      - kubectl apply -f services/application-services/INVOICE-service/kubernetes/invoice-service.yaml -n $TENANT_NAME
       - sed -i -e 's,TENANT_NAME,'$TENANT_NAME',g' resources/policy/tenant-service-policy.yaml
       - kubectl apply -f resources/policy/tenant-service-policy.yaml -n $TENANT_NAME

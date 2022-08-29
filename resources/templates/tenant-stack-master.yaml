@@ -19,6 +19,9 @@ Parameters:
   OrderServiceEcrRepoUri:
     Type: String
     Description: Order Service Ecr Repository Uri
+  InvoiceServiceEcrRepoUri:
+    Type: String
+    Description: Invoice Service Ecr Repository Uri
   BranchName:
     Description: CodeCommit branch name
     Type: String
@@ -211,6 +214,8 @@ Resources:
             Value: !Ref ProductServiceEcrRepoUri
           - Name: ORDER_SERVICE_ECR_REPO_URI
             Value: !Ref OrderServiceEcrRepoUri
+          - Name: INVOICE_SERVICE_ECR_REPO_URI
+            Value: !Ref InvoiceServiceEcrRepoUri
       Name: !Ref AWS::StackName
       ServiceRole: !GetAtt CodeBuildServiceRole.Arn
       VpcConfig:

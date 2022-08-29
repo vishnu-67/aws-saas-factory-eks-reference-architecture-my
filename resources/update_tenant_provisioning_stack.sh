@@ -65,13 +65,15 @@ PROVISION_TEMPLATE="https://${ARTIFACT_BUCKET}.s3.amazonaws.com/tenant-stack.yam
 # Retrieve the order-service and product-service repository names
 PRODUCT_SERVICE_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-ProductECR'].Value" --output text)
 ORDER_SERVICE_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-OrderECR'].Value" --output text)
+INVOICE_SERVICE_ECR=$(aws cloudformation list-exports --query "Exports[?Name=='${STACK_NAME}-InvoiceECR'].Value" --output text)
 
 echo $PRODUCT_SERVICE_ECR
 echo $ORDER_SERVICE_ECR
+echo $INVOICE_SERVICE_ECR
 
 # Record this metadata in the dynamo table that was made in root-stack
 aws dynamodb put-item \
 --table-name ${TENANT_METADATA_TABLE} \
---item "{\"DOMAIN_NAME\": {\"S\": \"$DOMAINNAME\"}, \"HOSTED_ZONE_ID\": {\"S\": \"$HOSTEDZONEID\"}, \"APP_CLOUDFRONT_ID\": {\"S\": \"$APP_CLOUDFRONT_ID\"}, \"S3_ENDPOINT\": {\"S\": \"$PROVISION_TEMPLATE\"}, \"PRODUCT_SERVICE_ECR\": {\"S\": \"$PRODUCT_SERVICE_ECR\"}, \"ORDER_SERVICE_ECR\": {\"S\": \"$ORDER_SERVICE_ECR\"}}" \
+--item "{\"DOMAIN_NAME\": {\"S\": \"$DOMAINNAME\"}, \"HOSTED_ZONE_ID\": {\"S\": \"$HOSTEDZONEID\"}, \"APP_CLOUDFRONT_ID\": {\"S\": \"$APP_CLOUDFRONT_ID\"}, \"S3_ENDPOINT\": {\"S\": \"$PROVISION_TEMPLATE\"}, \"PRODUCT_SERVICE_ECR\": {\"S\": \"$PRODUCT_SERVICE_ECR\"}, \"ORDER_SERVICE_ECR\": {\"S\": \"$ORDER_SERVICE_ECR\"},\"INVOICE_SERVICE_ECR\": {\"S\": \"$INVOICE_SERVICE_ECR\"}}" \
 --return-consumed-capacity TOTAL        
       

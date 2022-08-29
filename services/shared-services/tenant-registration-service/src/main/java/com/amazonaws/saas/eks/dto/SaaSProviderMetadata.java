@@ -22,6 +22,7 @@ public class SaaSProviderMetadata implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String s3Endpoint;
 	private String orderServiceEcrRepoUri;
+	private String invoiceServiceEcrRepoUri;
 	private String productServiceEcrRepoUri;
 	private String providerUserPool;
 
@@ -37,8 +38,15 @@ public class SaaSProviderMetadata implements Serializable {
 		return orderServiceEcrRepoUri;
 	}
 
+	public String getInvoiceServiceEcrRepoUri() {
+		return invoiceServiceEcrRepoUri;
+	}
+
 	public void setOrderServiceEcrRepoUri(String orderServiceEcrRepoUri) {
 		this.orderServiceEcrRepoUri = orderServiceEcrRepoUri;
+	}
+	public void setInvoiceServiceEcrRepoUri(String invoiceServiceEcrRepoUri) {
+		this.invoiceServiceEcrRepoUri = invoiceServiceEcrRepoUri;
 	}
 
 	public String getProductServiceEcrRepoUri() {
