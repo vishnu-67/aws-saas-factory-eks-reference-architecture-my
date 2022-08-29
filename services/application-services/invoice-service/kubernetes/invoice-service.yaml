@@ -16,7 +16,7 @@ spec:
         - name: invoice
           image: INVOICE_SERVICE_ECR_REPO_URI:latest
           ports:
-            - containerPort: 5001
+            - containerPort: 5003
               name: "http"
 ---
 apiVersion: v1
@@ -30,7 +30,7 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 5001
+      targetPort: 5003
   type: NodePort
 
 ---
