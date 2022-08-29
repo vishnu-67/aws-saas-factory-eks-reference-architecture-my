@@ -35,7 +35,7 @@ Resources:
     Type: AWS::ECR::Repository
     Properties: 
       ImageScanningConfiguration: 
-        scanOnPush: "true
+        scanOnPush: "true"
 Outputs:
   TenantManagementServiceRepo:
     Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${TenantManagementService}"
