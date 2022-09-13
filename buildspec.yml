@@ -49,6 +49,6 @@ phases:
       - sed -i -e 's,TENANT_NAME,'$TENANT_NAME',g' services/application-services/invoice-service/kubernetes/invoice-service.yaml
       - sed -i -e 's,CUSTOM_DOMAIN,'$CUSTOM_DOMAIN',g' services/application-services/invoice-service/kubernetes/invoice-service.yaml
       - sed -i -e 's,INVOICE_SERVICE_ECR_REPO_URI,'$INVOICE_SERVICE_ECR_REPO_URI',g' services/application-services/invoice-service/kubernetes/invoice-service.yaml
-      - kubectl apply -f services/application-services/INVOICE-service/kubernetes/invoice-service.yaml -n $TENANT_NAME
+      - kubectl apply -f services/application-services/invoice-service/kubernetes/invoice-service.yaml -n $TENANT_NAME
       - sed -i -e 's,TENANT_NAME,'$TENANT_NAME',g' resources/policy/tenant-service-policy.yaml
       - kubectl apply -f resources/policy/tenant-service-policy.yaml -n $TENANT_NAME

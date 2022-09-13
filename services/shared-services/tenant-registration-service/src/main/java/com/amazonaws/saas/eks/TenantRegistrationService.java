@@ -165,7 +165,7 @@ public class TenantRegistrationService {
 		orderServiceEcrRepoUriParam.setParameterValue(saaSProviderMetadata.getOrderServiceEcrRepoUri());
 		parameters.add(orderServiceEcrRepoUriParam);
 
-		Parameter InvoiceServiceEcrRepoUriParam = new Parameter();
+		Parameter invoiceServiceEcrRepoUriParam = new Parameter();
 		invoiceServiceEcrRepoUriParam.setParameterKey("InvoiceServiceEcrRepoUri");
 		invoiceServiceEcrRepoUriParam.setParameterValue(saaSProviderMetadata.getInvoiceServiceEcrRepoUri());
 		parameters.add(invoiceServiceEcrRepoUriParam);

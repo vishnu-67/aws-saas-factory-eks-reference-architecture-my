@@ -56,9 +56,9 @@ echo 'export ALB_INGRESS_VERSION="v1.1.8"' >>  ~/.bash_profile
 rm -vf ${HOME}/.aws/credentials
 
 echo "Installing Node and Angular"
-nvm install 12.16
-nvm use 12.16
-npm install -g @angular/cli@9.1.0
+nvm install 14.15
+nvm use 14.15
+npm install -g @angular/cli@14.1.x
 
 echo "Generating a new key. Hit ENTER three times when prompted to accept the defaults"
 ssh-keygen

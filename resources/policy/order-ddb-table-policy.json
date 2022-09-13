@@ -5,14 +5,10 @@
             "Sid": "TENANT_NAME",
             "Effect": "Allow",
             "Action": "dynamodb:*",
-            "Resource": "arn:aws:dynamodb:us-east-1:ACCOUNT_ID:table/Order-TENANT_NAME"
-        },
-        {
-            "Sid": "TENANT_NAME",
-            "Effect": "Allow",
-            "Action": "dynamodb:*",
-            "Resource": "arn:aws:dynamodb:us-east-1:ACCOUNT_ID:table/Invoice-TENANT_NAME"
+            "Resource": [
+                "arn:aws:dynamodb:us-east-1:ACCOUNT_ID:table/Order-TENANT_NAME",
+                "arn:aws:dynamodb:us-east-1:ACCOUNT_ID:table/Invoice-TENANT_NAME"
+            ]
         }
-
     ]
 }
