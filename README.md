@@ -56,6 +56,13 @@ Note that the instructions below are intended to give you step-by-step, how-to i
 
    This [script](./setup.sh) sets up all Kubernetes tools, updates the AWS CLI and installs other dependencies that we'll use later. Take note of the final output of this script. If everything worked correctly, you should see the message that the you're good to continue creating the EKS cluster. If you do not see this message, please do not continue. Ensure that the Administrator EC2 role was created and successfully attached to the EC2 instance that's running your Cloud9 IDE. Also ensure you turned off `AWS Managed Credentials` inside your Cloud9 IDE (refer to steps 2 and 3).
 
+   * Note: Before run setup.sh check some package version 
+        1. open setup.sh --- check angular & node version ( currently need angular 14.1.x & node 14.15 ).
+        2. open file (aws-saas-factory-eks-reference-architecture/resources/templates/root-stack.yaml) --- changed to python version ( check lambda support latest python version).
+        3. open file (aws-saas-factory-eks-reference-architecture/resources/templates/build_and_upload_websites.sh) -- update angular & node version ( currently need angular 14.1.x & node 14.15 ).
+        4. open client project (aws-saas-factory-eks-reference-architecture/clients/Application & Admin)
+            ----- both project package.json update angular version 12.1.x to 14.1.x.
+
 6. Create the EKS Cluster
     * Run the following script to create a cluster configuration file, and subsequently provision the cluster using `eksctl`:
 
@@ -65,6 +72,17 @@ Note that the instructions below are intended to give you step-by-step, how-to i
     ```
 
     The cluster will take approximately 30 minutes to deploy.
+
+    * Note: After deploy-cluster and update the awscli and updated the kubenet config.
+    
+    ```bash
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install  
+
+    aws eks update-kubeconfig --name eks-saas --region us-east-1
+    ```
+    Once will updated kube config and open kube config file and check api version is change `v1alpha1` to `v1beta1` (vi /home/ec2-user/.kube/config). If not change manually override `v1alpha1` to `v1beta1`
 
 7. Deploy supporting infrastructure
     > :warning: Close the terminal window that you create the cluster in, and open a new terminal before starting this step otherwise you may get errors about your AWS_REGION not set.
